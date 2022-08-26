@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { fetchRandomCharacters } from "./fetchCharachters";
 import "./App.scss";
-import { nanoid } from "nanoid";
 import Card from "./components/Card";
 
 export interface Character {
   name: string;
   image: string;
-  id?: number;
+  id: number;
 }
 
 function App() {
@@ -18,17 +17,32 @@ function App() {
     fetchRandomCharacters(number).then((data) => setCharData(data));
   }
 
+  function shufflePictures() {
+    if (charData) {
+      const arrayShuffled = [...charData];
+      for (let i = arrayShuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arrayShuffled[i], arrayShuffled[j]] = [
+          arrayShuffled[j],
+          arrayShuffled[i],
+        ];
+      }
+      setCharData(arrayShuffled);
+    }
+  }
+
   return (
     <div className="layout">
       {charData?.map((character) => (
         <Card
-          key={nanoid()}
           name={character.name}
           image={character.image}
+          key={character.id}
         ></Card>
       ))}
 
       <button onClick={() => getNewCharacters(4)}>Get new character</button>
+      <button onClick={() => shufflePictures()}>Shufflem em</button>
     </div>
   );
 }

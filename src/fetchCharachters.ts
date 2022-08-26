@@ -17,7 +17,8 @@ export async function fetchRandomCharacters(num: number): Promise<Character[]> {
             query  getChars($ids: [ID!]!){
                 charactersByIds (ids: $ids ){
                     name,
-                    image
+                    image,
+                    id
                 }
               }`,
       variables: { ids: idsArray },
