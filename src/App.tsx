@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { fetchRandomCharacters } from "./fetchCharachters";
-import "./App.css";
+import "./App.scss";
 import { nanoid } from "nanoid";
+import Card from "./components/Card";
 
-interface Character {
+export interface Character {
   name: string;
   image: string;
   id?: number;
@@ -18,18 +19,17 @@ function App() {
   }
 
   return (
-    <pre style={{ width: "400px" }}>
+    <div className="layout">
       {charData?.map((character) => (
-        <img
-          style={{ height: "200px", width: "200px" }}
+        <Card
           key={nanoid()}
-          src={character.image}
-          alt=""
-        />
+          name={character.name}
+          image={character.image}
+        ></Card>
       ))}
 
       <button onClick={() => getNewCharacters(4)}>Get new character</button>
-    </pre>
+    </div>
   );
 }
 

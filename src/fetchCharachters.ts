@@ -1,4 +1,6 @@
-export async function fetchRandomCharacters(num: number) {
+import { Character } from "./App";
+
+export async function fetchRandomCharacters(num: number): Promise<Character[]> {
   const idsArray: number[] = [];
   while (idsArray.length !== num) {
     const randomId = Math.floor(Math.random() * 825 + 1);

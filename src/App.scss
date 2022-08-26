@@ -1,0 +1,22 @@
+.card {
+  height: 300px;
+  width: 200px;
+
+  & img {
+    height: 200px;
+    width: 200px;
+  }
+
+  & p {
+    display: flex;
+    place-items: center;
+    justify-content: center;
+  }
+}
+
+.layout {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 2rem;
+}
