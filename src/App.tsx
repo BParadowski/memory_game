@@ -13,16 +13,25 @@ function App() {
   const [charData, setCharData] = useState<Character[]>();
   const [points, setPoints] = useState(0);
   const [highscore, setHighscore] = useState(0);
+  const [loadingMessage, setLoadingMessage] = useState("Loading API data...");
 
   const usedCards = useRef<number[]>([]);
   const numberOfCards = useRef(4);
 
   useEffect(() => getNewCharacters(numberOfCards.current), []);
-  useEffect(() => setHighscore(points > highscore ? points : highscore)),
-    [points];
+  useEffect(
+    () => setHighscore(points > highscore ? points : highscore),
+    [points]
+  );
 
-  function getNewCharacters(number = 1) {
-    fetchRandomCharacters(number).then((data) => setCharData(data));
+  function getNewCharacters(number: number) {
+    fetchRandomCharacters(number)
+      .then((data) => {
+        setCharData(data);
+      })
+      .catch((err) => {
+        setLoadingMessage("Failed to load resources. " + err);
+      });
   }
 
   function shufflePictures() {
@@ -75,9 +84,7 @@ function App() {
       <h2>
         Your score: {points} Highscore: {highscore}
       </h2>
-      <div className="card-list">
-        {cardList || "Failed to load resources from Rick and Morty API :("}
-      </div>
+      <ul className="card-list">{cardList || loadingMessage}</ul>
     </div>
   );
 }
