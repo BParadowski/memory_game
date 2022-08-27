@@ -2,7 +2,7 @@ import { Character } from "./App";
 
 export async function fetchRandomCharacters(
   num: number
-): Promise<Character[] | null> {
+): Promise<Character[] | undefined> {
   const idsArray: number[] = [];
   while (idsArray.length !== num) {
     const randomId = Math.floor(Math.random() * 825 + 1);
@@ -31,6 +31,6 @@ export async function fetchRandomCharacters(
     return data["data"]["charactersByIds"];
   } catch (err) {
     console.log(err);
-    return null;
+    return;
   }
 }
