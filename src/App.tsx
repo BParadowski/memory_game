@@ -24,7 +24,7 @@ function App() {
     [points]
   );
 
-  function getNewCharacters(number: number) {
+  function getNewCharacters(number = numberOfCards.current) {
     fetchRandomCharacters(number)
       .then((data) => {
         setCharData(data);
@@ -53,7 +53,7 @@ function App() {
       setHighscore(points);
       setPoints(0);
       numberOfCards.current = 4;
-      getNewCharacters(numberOfCards.current);
+      getNewCharacters();
       usedCards.current = [];
       return true;
     } else {
@@ -62,7 +62,7 @@ function App() {
       if (usedCards.current.length === charData?.length) {
         numberOfCards.current = numberOfCards.current + 2;
         usedCards.current = [];
-        getNewCharacters(numberOfCards.current);
+        getNewCharacters();
       }
     }
     return false;
@@ -80,7 +80,7 @@ function App() {
 
   return (
     <div className="layout">
-      <h1 className="header">Memory battle feat. Rick and Morty</h1>
+      <h1 className="header">Memory game feat. Rick and Morty</h1>
       <h2>
         Your score: {points} Highscore: {highscore}
       </h2>
